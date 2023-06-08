@@ -1,3 +1,5 @@
+from typing import Union
+
 """
 Faça um jogo para o usuário adivinhar qual
 a palavra secreta.
@@ -15,30 +17,45 @@ Faça a contagem de tentativas do seu
 usuário.
 """
 # for letra in texto
-palavra_secreta = 'abajur'
-palavras_acertadas = ''
-continuar = True
-inicio = None
+palavra_secreta: str = 'abajur'
+palavras_acertadas: str = ''
+palavra_codificada: str = ''
+continuar: bool = True
+inicio: Union[None, bool] = None
 
-while continuar :
+while continuar:
 
     letra = input('Digite uma letra: ')
 
-    if letra in palavra_secreta :
+    if (len(letra) > 1):
+        print('Só é aceito um único digito, vamos tentar novamente!')
+        continue
 
-        palavras_acertadas += letra
+    if letra in palavra_secreta:
+        palavras_acertadas += letra if letra not in palavras_acertadas else ''
 
+    i = 0
+    for palavra in palavra_secreta:
+        tem = None
+        for acertada in palavras_acertadas:
+            if acertada == palavra_secreta[i]:
+                palavra_codificada += palavra
+                tem = True
+            else:
+                palavra_codificada += ''
+        i += 1
+        palavra_codificada += '*' if tem is None else ''
 
-    if palavra_secreta == palavras_acertadas:
-        print(f'Parabéns você acertou: {palavra_secreta}')
+    if palavra_secreta == palavra_codificada:
+        print(f'Parabéns você acertou: {palavra_codificada}')
         break
     else:
-        print(f'A palavra secreta é: {palavras_acertadas}')
+        print(f'A palavra secreta é: {palavra_codificada}')
 
-    sair = input('Deseja continuar o jogo? [s] ou [n] ').lower()
+    sair = input('Deseja abandonar o jogo? [s] ou [n] ').lower()
 
-    if (sair == 'n'):
+    if sair == 's':
         continuar = False
         print('Game Over!')
 
-
+    palavra_codificada = ''
