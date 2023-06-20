@@ -10,6 +10,6 @@ Operação ternária (condicional de uma linha)
 # novo_digito = 0 if digito > 9 else digito
 # print(novo_digito)
 
-print('Valor se verdadeiro' if True else 'Valor se falso')
+print('Valor se verdadeiro' if True else 'Valor se falso ')
 
 print('Valor' if False else 'Outro valor' if False else 'Fim')
