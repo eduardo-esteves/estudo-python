@@ -25,10 +25,20 @@ contrário disso:
 O segundo dígito do CPF é 0
 """
 
-cpf: str = '74682489070'
+import re
+import sys
+
+cpf: str = input('Por favor informe um CPF válido: ')
+cpf = re.sub(r'[^0-9]', '', cpf)
 cpf_calc: str = cpf[:9]
 accumulator: int = 0
 i: int = 10
+
+seq_input = cpf == cpf[0] * len(cpf)
+
+if seq_input:
+    print('Erro => Você digitou dados sequenciais.')
+    sys.exit()
 
 for digito in cpf_calc:
     accumulator += int(digito) * i
