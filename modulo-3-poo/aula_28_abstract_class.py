@@ -85,8 +85,10 @@ class ClubeGerentes(MutableSequence):
     def __setitem__(self, key, value):
         self._funcionarios[key] = value
 
-    def insert(self):
-        print('Insert')
+    def insert(self, index, value):
+        # Insere o novo elemento na posição especificada
+        self._funcionarios.insert(index, value)
+
 
 eduardo = Gerente('Eduardo', '22222222', 10000, '1232', 4)
 marcela = Gerente('Marcela', '11111111', 7000, '1232', 4)
@@ -99,8 +101,16 @@ cg = ClubeGerentes('São Paulo', lista_gerentes)
 segundo_elem = cg[1]
 todos_func = cg.listar_funcionarios()
 
+novo_gerente = Gerente('Novo Gerente', '44444444', 9500, '1234', 3)
+posicao = len(cg)
+cg.insert(posicao, novo_gerente)
+# Gerando uma lista de gerentes do tipo dict, sendo possível manipular como uma lista de dicionarios
+#lista_funcionarios = cg.listar_funcionarios()
+lista_funcionarios = [gerente.__dict__ for gerente in cg.listar_funcionarios()]
+
+
 print_msg('__getitem__')
 print(segundo_elem)
 
 print_msg('listar_funcionarios()')
-print(dir(cg))
+print(lista_funcionarios)
