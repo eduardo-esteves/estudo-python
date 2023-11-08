@@ -3,7 +3,15 @@ from django.shortcuts import render
 # Create your views here.
 
 def index(request):
-    return render(request, 'index.html')
+    context = {
+        'title': 'Home - Django Framework',
+        'h1': 'Bem vindo a pagina Django Framework'
+    }
+    return render(request, 'index.html', context)
 
 def contact(request):
-    return render(request, 'contact.html')
+    context = {
+        'title': 'Contato - Django Framework',
+        'h1': 'Contato'
+    }
+    return render(request, 'contact.html', context)
