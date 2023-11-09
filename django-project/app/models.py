@@ -7,14 +7,9 @@ class Product(models.Model):
     price = models.DecimalField('Price', decimal_places=2, max_digits=10)
     qtd_stock = models.IntegerField('Quantity in Stock')
 
-    def __str__(self):
-        return f'{self.id} - {self.name}'
-
 
 class Client(models.Model):
     first_name = models.CharField('First Name', max_length=200)
     last_name = models.CharField('Last Name', max_length=200)
     email = models.EmailField('Email', max_length=250)
 
-    def __str__(self):
-        return f'{self.id} - {self.first_name} {self.last_name}'
