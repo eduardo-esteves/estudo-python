@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
+from app.models import Product
+
 
 def index(request):
     context = {
@@ -15,3 +16,14 @@ def contact(request):
         'h1': 'Contato'
     }
     return render(request, 'contact.html', context)
+
+def products(request):
+    products = Product.objects.all()
+
+    context = {
+        'title': 'Produtos - Django Framework',
+        'h1': 'Produtos',
+        'products': products
+    }
+
+    return render(request, 'products.html', context)
