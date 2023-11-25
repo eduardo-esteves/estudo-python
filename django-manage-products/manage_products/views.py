@@ -4,7 +4,7 @@ from django.contrib import messages
 from .forms import ContactForm
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'pages/index.html')
 
 
 def contact(request):
@@ -26,8 +26,8 @@ def contact(request):
         'form': form
     }
 
-    return render(request, 'contact.html', context)
+    return render(request, 'pages/contact.html', context)
 
 
 def products(request):
-    return render(request, 'products.html')
+    return render(request, 'pages/products.html')
