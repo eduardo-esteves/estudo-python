@@ -22,7 +22,7 @@ class Product(Base):
     stock = models.IntegerField('Estoque')
     img = StdImageField(
         'Imagem',
-        upload_to='uploads',
+        upload_to='products_uploads',
         variations={
             'thumb': (120, 120),
             'medium': (300, 300),
