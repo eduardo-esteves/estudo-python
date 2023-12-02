@@ -2,9 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from manage_products.forms import ContactForm, ProductModelForm
+from manage_products.models import Product
 
 def index(request):
-    return render(request, 'pages/index.html')
+    context = {
+        'products': Product.objects.all()
+    }
+    return render(request, 'pages/index.html', context)
 
 
 def contact(request):
