@@ -29,16 +29,19 @@ def contact(request):
 
 
 def product(request):
-    if str(request.method) == 'POST':
-        form = ProductModelForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Produto salvo com sucesso!')
-            return redirect('index')
-        else:
-            messages.error(request, 'Erro ao salvar produto')
-    form = ProductModelForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'pages/product.html', context)
+    if str(request.user) != 'AnonymousUser':
+        if str(request.method) == 'POST':
+            form = ProductModelForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Produto salvo com sucesso!')
+                return redirect('index')
+            else:
+                messages.error(request, 'Erro ao salvar produto')
+        form = ProductModelForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'pages/product.html', context)
+    else:
+        return redirect('index')
