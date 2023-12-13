@@ -60,8 +60,8 @@ class Team_Members(Base):
     instagram = models.CharField('Instagram', max_length=100, default='#')
 
     class Meta:
-        verbose_name = 'Equipe'
-        verbose_name_plural = 'Equipes'
+        verbose_name = 'Funcionário'
+        verbose_name_plural = 'Funcionários'
 
     def __str__(self):
         return self.professional
