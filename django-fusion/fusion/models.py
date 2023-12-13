@@ -22,14 +22,16 @@ class Services(Base):
         ('lni-rocket', 'Foguete'),
     )
 
-    service = models.CharField('Serviço', max_length=200),
-    description = models.CharField('Descrição', max_length=250)
+    service = models.CharField('Serviço', max_length=200)
+    description = models.TextField('Descrição')
     icone = models.CharField('Icone', max_length=50, choices=ICONE_CHOICES)
+
+    class Meta:
+        verbose_name = 'Serviço'
+        verbose_name_plural = 'Serviços'
+
     def __str__(self):
         return self.service
-
-    # class Meta:
-    #     db_table = 'fusion_services'
 
 class Position(Base):
     job_title = models.CharField('Cargo', max_length=200)
