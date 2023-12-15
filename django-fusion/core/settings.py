@@ -13,6 +13,7 @@ import os
 
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
 
 # take environment variables from .env.
 load_dotenv()
@@ -25,10 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-i31dk!dwc8hktvf*52^xwhj(hc*_str*$ru(k(5-+*i9379@!v'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if os.getenv('ENVIROMENT_DEV', '').lower() != 'false' else False
 
 ALLOWED_HOSTS = ['*']
 
@@ -80,18 +81,21 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRE_DB_DATABASE'),
-        'USER': os.getenv('POSTGRE_DB_USER'),
-        'PASSWORD': os.getenv('POSTGRE_DB_PASSWORD'),
-        'HOST': os.getenv('POSTGRE_DB_HOST'),
-        'PORT': os.getenv('POSTGRE_DB_PORT'),
+if os.getenv('ENVIROMENT_DEV', '').lower() != 'false':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('POSTGRE_DB_DATABASE'),
+            'USER': os.getenv('POSTGRE_DB_USER'),
+            'PASSWORD': os.getenv('POSTGRE_DB_PASSWORD'),
+            'HOST': os.getenv('POSTGRE_DB_HOST'),
+            'PORT': os.getenv('POSTGRE_DB_PORT'),
+        }
     }
-}
-
+else:
+    DATABASES = {
+        'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -140,7 +144,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #         ###########   My Custom libs config   ################
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+if os.getenv('ENVIROMENT_DEV', '').lower() != 'false':
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 """
 EMAIL_HOST = 'localhost'
 EMAIL_HOST_USER = 'no-reply@seudominio.com.br'
