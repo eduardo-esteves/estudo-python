@@ -1,0 +1,11 @@
+[run]
+source = fusion
+
+omit =
+    fusion/__init__.py
+    fusion/settings.py
+    fusion/urls.py
+    fusion/admin.py
+    fusion/apps.py
+    fusion/migrations/*
+    fusion/tests/*
